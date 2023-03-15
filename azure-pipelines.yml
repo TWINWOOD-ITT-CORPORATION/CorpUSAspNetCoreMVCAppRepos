@@ -5,7 +5,13 @@
 
 trigger:
 - main
-
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'I:\CorpUSAspNetCoreMVCRepos'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: false
 pool:
   vmImage: ubuntu-latest
 
