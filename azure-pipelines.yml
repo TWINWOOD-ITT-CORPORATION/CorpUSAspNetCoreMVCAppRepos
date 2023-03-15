@@ -1,4 +1,14 @@
 # Starter pipeline
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(16f0cb02-7c55-4405-a4a0-6c419d56d3c6)'
+    appType: 'webAppLinux'
+    appName: 'AzureWebApp'
+    deployToSlotOrASE: true
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'DOTNETCORE|7.0'
+    startUpCommand: '''publish'''
 - task: CopyFiles@2
   inputs:
     SourceFolder: 'I:\CorpUSAspNetCoreMVCRepos'
