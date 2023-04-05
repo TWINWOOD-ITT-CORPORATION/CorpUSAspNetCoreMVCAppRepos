@@ -1,0 +1,43 @@
+# Starter pipeline
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure subscription 1(16f0cb02-7c55-4405-a4a0-6c419d56d3c6)'
+    appType: 'webAppLinux'
+    appName: 'AzureWebApp'
+    deployToSlotOrASE: true
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'DOTNETCORE|7.0'
+    startUpCommand: '''publish'''
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'I:\CorpUSAspNetCoreMVCRepos'
+    Contents: '**'
+    TargetFolder: 'J:\Copied'
+    OverWrite: true
+    preserveTimestamp: true
+    ignoreMakeDirErrors: true
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'I:\CorpUSAspNetCoreMVCRepos'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: false
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
